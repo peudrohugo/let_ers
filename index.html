@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Let_ers</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <h2>Fase: <span id="phase-display">1</span></h2>
+      <h3>Tentativas restantes: <span id="attempts-display">3</span></h3>
+      <div id="image-container">
+        <img id="game-image" src="" alt="Imagem da palavra" />
+      </div>
+      <div id="word-container"></div>
+      <div id="letter-container"></div>
+    </div>
+    <div id="win-screen" class="hidden">
+      <h1>Parabéns!</h1>
+      <p>Você terminou todas as fases com sucesso!</p>
+      <button id="restart-button">Início</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
