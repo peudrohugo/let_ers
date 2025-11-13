@@ -11,6 +11,7 @@ const wordList = [
 let currentPhase = 1;
 let attemptsLeft = 3;
 let currentWordData = null;
+let missingLetters = 0;
 let lettersToGuess = [];
 let availableWords = [];
 
@@ -22,14 +23,33 @@ const imageContainer = document.getElementById("game-image");
 const wordContainer = document.getElementById("word-container");
 const letterContainer = document.getElementById("letter-container");
 const restartButton = document.getElementById("restart-button");
+const menuContainer = document.getElementById("menu-container");
+const easyButton = document.getElementById("easy-button");
+const mediumButton = document.getElementById("medium-button");
+const hardButton = document.getElementById("hard-button");
+
+easyButton.addEventListener("click", () => {
+  missingLetters = 2;
+  startGame();
+});
+
+mediumButton.addEventListener("click", () => {
+  missingLetters = 3;
+  startGame();
+});
+
+hardButton.addEventListener("click", () => {
+  missingLetters = 4;
+  startGame();
+});
 
 function startGame() {
   currentPhase = 1;
   attemptsLeft = 3;
   availableWords = [...wordList];
 
-  winScreen.classList.add("hidden");
   gameContainer.classList.remove("hidden");
+  menuContainer.classList.add("hidden");
 
   loadPhase();
 }
@@ -42,7 +62,7 @@ function loadPhase() {
   phaseDisplay.textContent = currentPhase;
   attemptsDisplay.textContent = attemptsLeft;
 
-  const missingLetterCount = currentPhase >= 4 ? 4 : currentPhase;
+  const missingLetterCount = missingLetters;
 
   const possibleWords = availableWords.filter(
     (w) => w.word.length > missingLetterCount
@@ -183,7 +203,9 @@ function addDropZoneEvents(zone) {
 
       if (attemptsLeft <= 0) {
         alert("Acabaram suas tentativas! O jogo vai recomeçar.");
-        startGame();
+        menuContainer.classList.remove("hidden");
+        gameContainer.classList.add("hidden");
+        winScreen.classList.add("hidden");
       }
     }
   });
@@ -210,6 +232,8 @@ function showWinScreen() {
   winScreen.classList.remove("hidden");
 }
 
-restartButton.addEventListener("click", startGame);
-
-startGame();
+restartButton.addEventListener("click", () => {
+  menuContainer.classList.remove("hidden");
+  winScreen.classList.add("hidden");
+  gameContainer.classList.add("hidden");
+});
